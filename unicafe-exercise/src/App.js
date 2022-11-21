@@ -25,10 +25,10 @@ const App = () => {
   const addNeutralFeedback = () => setNeutral(neutral + 1)
   const addBadFeedback = () => setBad(bad + 1)
 
-  const total = good + neutral + bad
-  const avg = (good + -bad) / total
-  const pos = good / (good + neutral + bad)
-
+  let total = good + neutral + bad
+  let avg = ((1 * good) + (0 * neutral) + (-1 * bad)) / total
+  let pos = good / (good + neutral + bad)
+  
   return (
     <div>
       <h1>give feedback</h1>
