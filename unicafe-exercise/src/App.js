@@ -8,9 +8,9 @@ const Button = ({ onClick, text }) => {
   )
 }
 
-const Display = ({ state }) => {
+const Display = ({ text, value }) => {
   return(
-    <div>{state}</div>
+    <div>{text} {value}</div>
   )
 }
 
@@ -25,6 +25,10 @@ const App = () => {
   const addNeutralFeedback = () => setNeutral(neutral + 1)
   const addBadFeedback = () => setBad(bad + 1)
 
+  const total = good + neutral + bad
+  const avg = (good + -bad) / total
+  const pos = good / (good + neutral + bad)
+
   return (
     <div>
       <h1>give feedback</h1>
@@ -33,9 +37,12 @@ const App = () => {
       <Button onClick={addBadFeedback} text='bad' />
 
       <h1>statistics</h1>
-      <Display state={good} />
-      <Display state={neutral} />
-      <Display state={bad} />
+      <Display text="good" value={good} />
+      <Display text="neutral" value={neutral} />
+      <Display text="bad" value={bad} />
+      <Display text="total" value={total} />
+      <Display text="average" value={avg} />
+      <div>positive {pos} %</div>
     </div>
   )
 }
