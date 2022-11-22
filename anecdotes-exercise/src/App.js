@@ -1,5 +1,35 @@
 import { useState } from 'react'
 
+const Anedotes = ({ anecdotes, selected, votes }) => {
+  return (
+    <div>
+      <h1>Anecdote of the day</h1>
+      {anecdotes[selected]}
+      <p>has {votes[selected]} votes</p>
+    </div>
+  )
+}
+
+const Buttons = ({ vote, randomSelection }) => {
+  return (
+    <div>
+    <button onClick={vote}>vote</button>
+    <button onClick={randomSelection}>next anecdote</button>
+    </div>
+  )
+}
+
+const MostVotedAnecdote = ({ anecdotes, votes }) => {
+  const mostVotesIndex = votes.indexOf(Math.max(...votes))
+  return (
+    <div>
+      <h1>Anecdote with the most votes</h1>
+      {anecdotes[mostVotesIndex]}
+      <p>has {votes[mostVotesIndex]} votes</p>
+    </div>
+  )
+}
+
 const App = () => {
   const anecdotes = [
     'If it hurts, do it more often.',
@@ -16,25 +46,20 @@ const App = () => {
 
   const vote = () => {
     const newVotes = [...votes]
-    newVotes[selected] += 1
+    newVotes[selected] = newVotes[selected] + 1
     setVotes(newVotes)
   }
 
   const randomSelection = () => {
     const rand = Math.floor(Math.random() * anecdotes.length)
-
     setSelected(rand)
   }
 
   return (
     <div>
-      {anecdotes[selected]}
-      <p>has {votes[selected]} votes</p>
-
-      <div>
-        <button onClick={vote}>vote</button>
-        <button onClick={randomSelection}>next anecdote</button>
-      </div>
+      <Anedotes anecdotes={anecdotes} selected={selected} votes={votes} />
+      <Buttons vote={vote} randomSelection={randomSelection} />
+      <MostVotedAnecdote anecdotes={anecdotes} votes={votes}/>
     </div>
   )
 }
